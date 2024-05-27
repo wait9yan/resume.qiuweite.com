@@ -65,7 +65,7 @@ date: 2024年05月25日
 
 ### **#** Web 前端开发
 
-- ▫️ 熟练使用 `HTML`、`CSS`、`JavaScript` 等前端开发语言，掌握 `JavaScript` 的用法，了解 ES6/7 规范
+- ▫️ 熟练使用 `HTML`、`CSS`、`JavaScript` 等前端开发语言，掌握 `JavaScript` 的用法，了解 ES6 规范
 - ▫️ 熟练使用 `Vue.js` 框架生态进行项目开发（包括 `Element`、`Vant` 等基于 Vue 的前端组件库）
 - ▫️ 熟练使用 `Tailwind CSS` 等前端样式库，使用过 `SASS` 作为 CSS 预处理器
 - ▫️ 有大型单页面应用开发经验，有数据展示仪表盘开发经验，项目部署经验
