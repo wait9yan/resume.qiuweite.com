@@ -1,29 +1,28 @@
 name: deploy to production
 on:
   push:
-    branches:
-      - main
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
 
 jobs:
   build:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    env:
-      SERVER_HOST: ${{ secrets.SERVER_HOST }}
-      SERVER_KEY: ${{ secrets.SERVER_KEY }}
-      SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-      SERVER_WORKDIR: ${{ secrets.SERVER_WORKDIR }}
+
+    strategy:
+      matrix:
+        node-version: [22.9]
 
     steps:
-      # 切换分支
       - name: read code
-        uses: actions/checkout@v2
-      # 使用 node:22
-      - name: use Node.js 22
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v4
+        
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
-      # npm install
+          node-version: ${{ matrix.node-version }}
+          
       - name: npm install and build
         run: |
           npm install
@@ -34,14 +33,14 @@ jobs:
           ls -R ./docs/.vitepress/ || echo "Dist directory not found"
         env:
           CI: true
-      # Deploy
+          
       - name: Deploy
         uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete --exclude="" --include="" --filter=""
           path: ./docs/.vitepress/dist/
-          remote_host: ${{ secrets.SERVER_HOST }} # 服务器地址
-          remote_user: ${{ secrets.SERVER_USERNAME }} # 用户名
-          remote_key: ${{ secrets.SERVER_KEY }} # 私钥
-          remote_path: ${{ secrets.SERVER_WORKDIR }} # 使用工作目录变量
+          remote_host: ${{ secrets.SERVER_HOST }}
+          remote_user: ${{ secrets.SERVER_USERNAME }}
+          remote_key: ${{ secrets.SERVER_KEY }}
+          remote_path: ${{ secrets.SERVER_WORKDIR }}
 
