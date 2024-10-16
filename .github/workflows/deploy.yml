@@ -1,0 +1,49 @@
+name: deploy to production
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      SERVER_KEY: ${{ secrets.SERVER_KEY }}
+      SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+      SERVER_WORKDIR: ${{ secrets.SERVER_WORKDIR }}
+
+    steps:
+      # 切换分支
+      - name: read code
+        uses: actions/checkout@v2
+      # 使用 node:22
+      - name: use Node.js 22
+        uses: actions/setup-node@v1
+        with:
+          node-version: 22
+      # npm install
+      - name: npm install and build
+        run: |
+          npm install
+          npm run build
+        env:
+          CI: true
+      # Deploy
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        env:
+          SERVER_WORKDIR: ${{ secrets.SERVER_WORKDIR }} # 工作目录变量
+        with:
+          host: ${{ secrets.SERVER_HOST }} # 服务器地址
+          username: ${{ secrets.SERVER_USERNAME }} # 用户名
+          key: ${{ secrets.SERVER_KEY }} # 私钥
+          envs: SERVER_WORKDIR # 使用工作目录变量
+        # 进入到项目目录，执行依赖更新
+          script: |
+            cd $SERVER_WORKDIR
+            rm -rf *
+            rsync -avz --delete ./dist/ ${{ secrets.SERVER_WORKDIR }}@${{ secrets.SERVER_HOST }}:$SERVER_WORKDIR
+            sudo systemctl restart nginx
+
