@@ -30,6 +30,8 @@ jobs:
           npm run docs:build
           ls
           pwd
+          ls -R ./docs/ || echo "Dist directory not found"
+          ls -R ./docs/.vitepress/ || echo "Dist directory not found"
         env:
           CI: true
       # Deploy
