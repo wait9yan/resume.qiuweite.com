@@ -27,7 +27,7 @@ jobs:
       - name: npm install and build
         run: |
           npm install
-          npm run build
+          npm run docs:build
         env:
           CI: true
       # Deploy
@@ -44,6 +44,6 @@ jobs:
           script: |
             cd $SERVER_WORKDIR
             rm -rf *
-            rsync -avz --delete ./dist/ ${{ secrets.SERVER_WORKDIR }}@${{ secrets.SERVER_HOST }}:$SERVER_WORKDIR
+            rsync -avz --delete ./docs/.vitepress/dist/ ${{ secrets.SERVER_WORKDIR }}@${{ secrets.SERVER_HOST }}:$SERVER_WORKDIR
             sudo systemctl restart nginx
 
