@@ -28,6 +28,8 @@ jobs:
         run: |
           npm install
           npm run docs:build
+          ls
+          pwd
         env:
           CI: true
       # Deploy
@@ -42,8 +44,6 @@ jobs:
           envs: SERVER_WORKDIR # 使用工作目录变量
         # 进入到项目目录，执行依赖更新
           script: |
-            cd $SERVER_WORKDIR
-            rm -rf *
             rsync -avz --delete ./docs/.vitepress/dist/ ${{ secrets.SERVER_WORKDIR }}@${{ secrets.SERVER_HOST }}:$SERVER_WORKDIR
             sudo systemctl restart nginx
 
