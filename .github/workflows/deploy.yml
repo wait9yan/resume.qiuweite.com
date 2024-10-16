@@ -36,18 +36,12 @@ jobs:
           CI: true
       # Deploy
       - name: Deploy
-        uses: appleboy/ssh-action@master
-        env:
-          SERVER_WORKDIR: ${{ secrets.SERVER_WORKDIR }} # 工作目录变量
+        uses: burnett01/rsync-deployments@7.0.1
         with:
-          host: ${{ secrets.SERVER_HOST }} # 服务器地址
-          username: ${{ secrets.SERVER_USERNAME }} # 用户名
-          key: ${{ secrets.SERVER_KEY }} # 私钥
-          envs: SERVER_WORKDIR # 使用工作目录变量
-        # 进入到项目目录，执行依赖更新
-          script: |
-            pwd
-            ls
-            rsync -avz --delete ./docs/.vitepress/dist/ ${{ secrets.SERVER_WORKDIR }}@${{ secrets.SERVER_HOST }}:$SERVER_WORKDIR
-            sudo systemctl restart nginx
+          switches: -avzr --delete --exclude="" --include="" --filter=""
+          path: ./docs/.vitepress/dist/
+          remote_host: ${{ secrets.SERVER_HOST }} # 服务器地址
+          remote_user: ${{ secrets.SERVER_USERNAME }} # 用户名
+          remote_key: ${{ secrets.SERVER_KEY }} # 私钥
+          remote_path: ${{ secrets.SERVER_WORKDIR }} # 使用工作目录变量
 
