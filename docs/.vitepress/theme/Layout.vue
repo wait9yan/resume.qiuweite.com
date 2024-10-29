@@ -1,9 +1,9 @@
 <!--
  * @Author       : wait9yan
  * @Date         : 2024-05-23 19:09:25
- * @LastEditors  : wait9yan
- * @LastEditTime : 2024-05-24 13:57:27
- * @FilePath     : \resume\docs\.vitepress\theme\Layout.vue
+ * @LastEditors  : wait9Yan
+ * @LastEditTime : 2024-10-29 19:52:09
+ * @FilePath     : \resume.qiuweite.com\docs\.vitepress\theme\Layout.vue
  * @Description  : 
 -->
 <script setup>
@@ -33,7 +33,7 @@ const { site, frontmatter } = useData()
                     <hr>
                 </div>
             </header>
-            <Content class="entry-content font-white"/>
+            <Content class="entry-content"/>
         </div>
     </div>
     <div v-else>

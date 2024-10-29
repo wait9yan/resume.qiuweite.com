@@ -1,0 +1,11 @@
+:root {
+    --theme: light;
+    --primary-bg-color: #faf9f5;
+    --second-bg-color: #f2f1ed;
+    --text-color: #463f24;
+    --text-small-color: #807342;
+    --text-link-color: #1abc9c;
+    --text-code-color: #d3547e;
+    --border-color: 1px solid #807342;
+    --box-shadow: 0 0 40px -15px #9e9e9e;
+}
