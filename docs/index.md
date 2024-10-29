@@ -17,7 +17,7 @@ title: 邱卫特 | 前端开发工程师
 
 :fa-phone: [(+86)193-5751-2649](#) &nbsp;
 :fa-envelope: <wait9yan@gmail.com> &nbsp;
-:fab-github: [github.com/wait9yan](https://github.com/wait9yan) &nbsp;
+:fab-github: [github/wait9yan](https://github.com/wait9yan) &nbsp;
 :fa-globe: [resume.qiuweite.com](https://resume.qiuweite.com)
 
 ---
